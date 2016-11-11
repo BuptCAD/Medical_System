@@ -21,4 +21,6 @@ public interface CustomerService {
 	public Customer getCustoemrDetailsByIdCard(String idCard) throws Exception;
 	
 	public Customer loginVerifyByUserName(String userName) throws Exception;
+
+	boolean login(Customer customer);
 }

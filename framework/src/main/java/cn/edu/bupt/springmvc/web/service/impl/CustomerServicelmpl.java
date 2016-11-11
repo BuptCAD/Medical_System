@@ -102,4 +102,24 @@ public class CustomerServicelmpl implements CustomerService {
 		return null;
 	}
 
+	@Override
+	public boolean login(Customer customer) {
+		// TODO Auto-generated method stub
+		customerExample = new CustomerExample();
+		customerExample.createCriteria()
+		.andCustomernameEqualTo(customer.getCustomername())
+		.andIdcardEqualTo(customer.getIdcard())
+		.andPasswordEqualTo(customer.getPassword())
+		.andPhoneEqualTo(customer.getPhone());
+		
+		List<Customer> customerList = customerMapper.selectByExample(customerExample);
+		if (customerList != null) {
+			if(customerList.size()>0){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
 }

@@ -17,28 +17,6 @@ import cn.edu.bupt.springmvc.web.service.CustomerService;
 @Controller
 @RequestMapping(value="customer")
 public class CustomerController extends GenericController {
-	
-	@Resource
-	private CustomerService customerService;
-	
-	/**
-	 * @author qjk
-	 * @param request
-	 * @param response
-	 * 
-	 * 插入一条数据
-	 */
-	@RequestMapping(value="insert")
-	public void insert(HttpServletRequest request, HttpServletResponse response){
-		Customer record = new Customer();
-		int i = customerService.insert(record);
-		if (i>0) {
-			renderSuccessString(response, record);
-		} else {
-			renderErrorString(response, "insert table customer failed!");
-		}
-	}
-	
 	/**
 	 * 
 	 * @author qjk
@@ -73,6 +51,63 @@ public class CustomerController extends GenericController {
 			renderErrorString(response, "insert table customer failed!");
 		}
 	}
+	
+	
+	/**
+	 * 用户登录验证
+	 * @author lhh
+	 */
+	@RequestMapping(value="login", method=RequestMethod.POST)
+	public void login(HttpServletRequest request, HttpServletResponse response){
+		String userName = request.getParameter("account");
+		String idCard = request.getParameter("idCard");
+		String phone = request.getParameter("phone");
+		String password = request.getParameter("password");
+		//System.out.println(userName);
+		Customer custoemr = new Customer();
+		custoemr.setCustomername(userName);
+		custoemr.setIdcard(idCard);
+		custoemr.setPhone(phone);
+		custoemr.setPassword(password);
+		
+		try {
+			if (customerService.login(custoemr)) {
+				renderSuccessString(response, custoemr);
+			} else {
+				renderErrorString(response, "can't obtain customer infor");
+			}
+		} catch (Exception e) {
+			renderErrorString(response, "can't obtain customer infor");
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	
+	
+	@Resource
+	private CustomerService customerService;
+	
+	/**
+	 * @author qjk
+	 * @param request
+	 * @param response
+	 * 
+	 * 插入一条数据
+	 */
+	@RequestMapping(value="insert")
+	public void insert(HttpServletRequest request, HttpServletResponse response){
+		Customer record = new Customer();
+		int i = customerService.insert(record);
+		if (i>0) {
+			renderSuccessString(response, record);
+		} else {
+			renderErrorString(response, "insert table customer failed!");
+		}
+	}
+	
+	
 	
 	/**
 	 * @author qjk
@@ -127,27 +162,5 @@ public class CustomerController extends GenericController {
 		}
 	}
 	
-	/**
-	 * 用户登录验证
-	 * @author lhh
-	 */
-	@RequestMapping(value="loginVerifyByUserName", method=RequestMethod.POST)
-	public void loginVerify(HttpServletRequest request, HttpServletResponse response){
-		String userName = request.getParameter("account");
-		//System.out.println(userName);
-		Customer custoemr = new Customer();
-		try {
-			custoemr = customerService.loginVerifyByUserName(userName);
-			if (custoemr != null) {
-				renderSuccessString(response, custoemr);
-			} else {
-				renderErrorString(response, "can't obtain customer infor");
-			}
-		} catch (Exception e) {
-			renderErrorString(response, "can't obtain customer infor");
-			e.printStackTrace();
-		}
-		
-	}
 }
 
