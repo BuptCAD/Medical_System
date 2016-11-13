@@ -10,6 +10,7 @@
     <result column="sectionPic" property="sectionpic" jdbcType="VARCHAR" />
     <result column="sectionLoc" property="sectionloc" jdbcType="VARCHAR" />
   </resultMap>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -71,17 +72,14 @@
   <sql id="Base_Column_List" >
     sectionId, hosId, sectionCode, sectionName, sectionIntro, sectionPic, sectionLoc
   </sql>
-  <!-- 根据科室的Id得到本科室下所有的医生 -->
-  <select id = "selectSectionDoctorsBySectionId" parameterType="String" 
-  resultMap="cn.edu.bupt.springmvc.web.dao.DoctorMapper.DoctorBaseResultMap">
-		SELECT doctor.*
+  <!-- 根据科室的Id得到本科室下所有的门诊 -->
+  <select id = "selectSectionOutpatientsBySectionId" parameterType="String" 
+  resultMap="cn.edu.bupt.springmvc.web.dao.OutpatientMapper.BaseResultMap">
+	SELECT outpatient.*
 	FROM
 	section,
-	doctor,
 	outpatient
 	WHERE
-	doctor.outpatientId = outpatient.outpatientId
-	AND
 	outpatient.sectionId = section.sectionId
 	AND
 	section.sectionId = #{value}

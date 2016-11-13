@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 
 import cn.edu.bupt.springmvc.web.dao.SectionMapper;
-import cn.edu.bupt.springmvc.web.model.Doctor;
+import cn.edu.bupt.springmvc.web.model.Outpatient;
 import cn.edu.bupt.springmvc.web.model.Section;
 import cn.edu.bupt.springmvc.web.model.SectionExample;
 import cn.edu.bupt.springmvc.web.service.SectionService;
@@ -89,14 +89,14 @@ public class SectionServiceImpl implements SectionService {
 	}
 
 	@Override
-	public List<Doctor> getSectionDoctorList(String sectionId) throws Exception {
+	public List<Outpatient> getSectionOutpatient(String sectionId) throws Exception {
 		// TODO Auto-generated method stub
-		return sectionMapper.selectSectionDoctorsBySectionId(sectionId);
+		return sectionMapper.selectSectionOutpatientsBySectionId(sectionId);
 
 	}
 
 	@Override
-	public Section getSectionById(String sectionId) {
+	public Section selectByPrimaryKey(String sectionId) {
 		sectionExample = new SectionExample();
 		sectionExample.createCriteria().andSectionidEqualTo(sectionId);
 		List<Section> sectionList = sectionMapper.selectByExample(sectionExample);

@@ -21,16 +21,6 @@
     <result column="isFamilyDoc" property="isfamilydoc" jdbcType="TINYINT" />
     <result column="telephone" property="telephone" jdbcType="VARCHAR" />
     <result column="relNubCount" property="relnubcount" jdbcType="TINYINT" />
-    
-    <!-- lhh add  -->
-	<collection property="releaseNumList" ofType="cn.edu.bupt.springmvc.web.model.Releasenum">
-       <id column="realseId" jdbcType="VARCHAR" property="realseid" />
-       <result column="doctorId" jdbcType="VARCHAR" property="doctorid" />
-       <result column="date" jdbcType="TIMESTAMP" property="date" />
-       <result column="remark" jdbcType="VARCHAR" property="remark" />
-       <result column="isSuccess" jdbcType="TINYINT" property="issuccess" />
-       <result column="isFamilyNum" jdbcType="INTEGER" property="isfamilynum" />
-    </collection>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -95,19 +85,17 @@
     flag, sex, graduInstitution, tutorQualification, degree, marjor, partTimeAcademic, 
     certificateHold, isFamilyDoc, telephone, relNubCount
   </sql>
-  <select id="selectDoctorReleaseNumInfoByOutPatientId" parameterType="String" resultMap="DoctorBaseResultMap">
-	SELECT
-	doctor.doctorId,
-	doctor.doctorName,
-	releasenum.date,
-	releasenum.realseId
+   <!-- 根据门诊的Id得到本门诊下所有的放號-->
+  <select id = "selectDoctorReleaseNumsBySectionId" parameterType="String" 
+  resultMap="cn.edu.bupt.springmvc.web.dao.ReleasenumMapper.BaseResultMap">
+	SELECT releasenum.*
 	FROM
 	doctor,
 	releasenum
 	WHERE
-	doctor.outpatientId=#{value}
+	releasenum.doctorId = doctor.doctorId
 	AND
-	doctor.doctorId = releasenum.doctorId;
+	doctor.doctorId = #{value}
   </select>
   <select id="selectByExample" resultMap="DoctorBaseResultMap" parameterType="cn.edu.bupt.springmvc.web.model.DoctorExample" >
     select

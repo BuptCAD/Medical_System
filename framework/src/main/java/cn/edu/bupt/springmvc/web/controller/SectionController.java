@@ -1,9 +1,6 @@
 package cn.edu.bupt.springmvc.web.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import cn.edu.bupt.springmvc.core.generic.GenericController;
-import cn.edu.bupt.springmvc.web.model.Doctor;
+import cn.edu.bupt.springmvc.web.model.Outpatient;
 import cn.edu.bupt.springmvc.web.model.Section;
 import cn.edu.bupt.springmvc.web.service.SectionService;
+
+/**
+ * 科室
+ * @author wydewy
+ *
+ */
 
 @Controller
 @RequestMapping(value="section")
@@ -24,6 +27,59 @@ public class SectionController extends GenericController {
 
 	@Resource
 	private SectionService sectionService;
+	
+	/**
+	 * 
+	 * 根据医院sectionId获得医院的信息
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping(value="section_info")
+	public void hospitalInfo(HttpServletRequest request, HttpServletResponse response){
+		String sectionId = request.getParameter("sectionId");
+		Section record = sectionService.selectByPrimaryKey(sectionId);
+		if (record!=null) {
+			renderSuccessString(response, record);
+		} else {
+			renderErrorString(response, "select from Hospital no data!");
+		}
+	}
+	/**
+	 * 根据sectionid获得科室下的所有所有门诊的信息
+	 * 
+	 * @param reqest
+	 * @param response
+	 * @param hospitalId
+	 * @return
+	 */
+	@RequestMapping(value = "section_outpatient_list")
+	public void hospitalSectionList(HttpServletRequest request, HttpServletResponse response) {
+
+		String sectionId = request.getParameter("sectionId");
+		
+		if (sectionId != null && !"".equals(sectionId)) {
+			try {
+				List<Outpatient> sections = sectionService.getSectionOutpatient(sectionId);
+				if (sections != null) {
+					renderSuccessString(response, sections);
+				} else {
+					renderErrorString(response, "obtain info error!");
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				renderErrorString(response, "obtain info error!");
+				e.printStackTrace();
+			}
+		} else {
+			renderErrorString(response, "illegalArgument!");
+		}
+
+	}
+	
+	
+	
+	
+	
 	
 	/**
 	 * @author qjk
@@ -47,30 +103,6 @@ public class SectionController extends GenericController {
 		}
 	}
 	
-	/**
-	 * 科室选择，选择医院下所有的科室名称信息返回给前台
-	 * @author qjk
-	 * @param request
-	 * @param response
-	 */
-	@RequestMapping(value="selectAllSection")
-	public void selectAllSection(HttpServletRequest request, HttpServletResponse response){
-		List<Section> list = sectionService.selectByExample();
-		List<Map<String, String>> result = new ArrayList<>();
-		if(list!=null){		
-			for(int i=0;i<list.size();i++){
-				Map<String, String> item = new HashMap<>();
-				item.put("sectionName", list.get(i).getSectionname());
-				item.put("sectionId", list.get(i).getSectionid());
-				result.add(item);
-			}			
-		}
-		if(result!=null){
-			renderSuccessString(response, result);
-		} else {
-			renderErrorString(response, "select section no data");
-		}	
-	}
 	
 	/**
 	 * 根据科室id获取科室详细的信息
@@ -109,33 +141,5 @@ public class SectionController extends GenericController {
 			renderErrorString(response, "delete section record failed!");
 		}
 	}
-	
-	/**
-	 * 根据科室主键得到科室下的所有的医生
-	 * 
-	 * @param request
-	 * @param response
-	 */
-	@RequestMapping(value = "getSeciontDoctorListBySectionId", method = RequestMethod.GET)
-	public void getSeciontDoctorListBySectionId(HttpServletRequest request, HttpServletResponse response) {
-		
-		List<Doctor> doctorList = new ArrayList<>();
-		String sectionId = request.getParameter("sectionId");
-		
-		if (sectionId != null && !"".equals(sectionId)) {
-			try {
-				doctorList = sectionService.getSectionDoctorList(sectionId);
-				renderSuccessString(response, doctorList);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				renderErrorString(response, "can't obtain doctorList!");
-				e.printStackTrace();
-			}
-		} else {
-			renderErrorString(response, "NullPointException！");
-		}
-
-	}
-
 }
 

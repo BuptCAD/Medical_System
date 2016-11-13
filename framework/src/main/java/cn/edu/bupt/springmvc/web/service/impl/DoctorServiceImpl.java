@@ -136,35 +136,11 @@ public class DoctorServiceImpl implements DoctorService {
 		return doctorMapper.selectByPrimaryKey(doctorId);
 	}
 	
-	
-	public List<Doctor> getDoctorReleaseNumByOutPatientId(String outpatientId) throws Exception {
-		doctorExample = new DoctorExample();
-		doctorExample.createCriteria().andOutpatientidEqualTo(outpatientId);
-		List<Doctor> doctorReleasList = new ArrayList<>();
-		List<Doctor> doctorList = doctorMapper.selectByExample(doctorExample);
-		if (doctorList != null) {
-			for (Doctor doctor : doctorList) {
-				String doctorId = doctor.getDoctorid();
-				releasenumExample = new ReleasenumExample();
-				// 得到7天之内的判断条件
-				Calendar calendar = Calendar.getInstance();
-				String fromdays = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime());
-				Date date1 = (new SimpleDateFormat("yyyy-MM-dd")).parse(fromdays);
-				calendar.add(calendar.DATE, 7);
-				String todays = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime());
-				Date date2 = (new SimpleDateFormat("yyyy-MM-dd")).parse(todays);
 
-				releasenumExample.createCriteria().andDoctoridEqualTo(doctorId).andDateBetween(date1, date2);
-				releasenumExample.setOrderByClause("date");
-				List<Releasenum> releasenumList = releasenumMapper.selectByExample(releasenumExample);
-				if(releasenumList!=null){
-				//Doctor doc = new Doctor();
-				doctor.setReleaseNumList(releasenumList);
-				doctorReleasList.add(doctor);
-				}
-			}
-		}
-		return doctorReleasList;
+	@Override
+	public List<Releasenum> getDoctorReleaseNum(String outpatientId) throws Exception {
+		// TODO Auto-generated method stub
+		return doctorMapper.selectDoctorReleaseNumsBySectionId(outpatientId);
 	}
 
 }

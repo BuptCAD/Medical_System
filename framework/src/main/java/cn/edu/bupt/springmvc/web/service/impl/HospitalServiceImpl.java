@@ -12,6 +12,7 @@ import com.github.pagehelper.PageHelper;
 import cn.edu.bupt.springmvc.web.dao.HospitalMapper;
 import cn.edu.bupt.springmvc.web.model.Hospital;
 import cn.edu.bupt.springmvc.web.model.HospitalExample;
+import cn.edu.bupt.springmvc.web.model.Section;
 import cn.edu.bupt.springmvc.web.service.HospitalService;
 
 @Service
@@ -50,7 +51,7 @@ public class HospitalServiceImpl implements HospitalService {
 	}
 
 	@Override
-	public Hospital searchHosInfo(String hosId) {
+	public Hospital selectByPrimaryKey(String hosId) {
 		Hospital record = hospitalMapper.selectByPrimaryKey(hosId);
 		return record;
 	}
@@ -89,9 +90,9 @@ public class HospitalServiceImpl implements HospitalService {
 	}
 	
 		@Override
-	public List<Hospital> getHospitalSectionList(String hospitalId) throws Exception {
+	public List<Section> getHospitalSectionList(String hospitalId) throws Exception {
 		// TODO Auto-generated method stub
-		return hospitalMapper.finHospitalSectionResultMap(hospitalId);
+		return hospitalMapper.getHospitalSectionResultMap(hospitalId);
 	}
 
 

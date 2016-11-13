@@ -25,7 +25,7 @@ public class ReleasenumServiceImpl implements ReleasenumService {
 	@Override
 	public int insert(Releasenum record) {
 		String id = UUID.randomUUID().toString();
-		record.setRealseid(id);
+		record.setReleaseid(id);
 		record.setDoctorid("651dcb6c-76c8-4dde-9ae8-2a0b99885535"); //医生主键
 		record.setPrice(10.0);
 		record.setDate(null);
@@ -54,7 +54,7 @@ public class ReleasenumServiceImpl implements ReleasenumService {
 
 	@Override
 	public int updateByPrimaryKeySelective(Releasenum record) {
-		record.setRealseid("");
+		record.setReleaseid("");
 		record.setDoctorid("");
 		record.setDate(null);
 		record.setRemark("备注信息");
@@ -78,6 +78,12 @@ public class ReleasenumServiceImpl implements ReleasenumService {
 		releasenumExample = new ReleasenumExample();
 		releasenumExample.createCriteria().andRealseidEqualTo(releasenumId);
 		return releasenumMapper.selectByExample(releasenumExample).get(0);
+	}
+
+	@Override
+	public Releasenum getReleasenumDetailInfo(String releasenumId) {
+		// TODO Auto-generated method stub
+		return releasenumMapper.selectByPrimaryKey(releasenumId);
 	}
 
 }

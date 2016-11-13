@@ -1,9 +1,14 @@
 package cn.edu.bupt.springmvc.web.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import cn.edu.bupt.springmvc.web.model.Doctor;
 import cn.edu.bupt.springmvc.web.model.Outpatient;
 import cn.edu.bupt.springmvc.web.model.OutpatientExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import cn.edu.bupt.springmvc.web.model.Releasenum;
+import cn.edu.bupt.springmvc.web.model.ReleasenumExample;
 
 public interface OutpatientMapper {
     int countByExample(OutpatientExample example);
@@ -27,4 +32,9 @@ public interface OutpatientMapper {
     int updateByPrimaryKeySelective(Outpatient record);
 
     int updateByPrimaryKey(Outpatient record);
+
+	List<Doctor> selectOutpatientDoctors(String outpatientId);
+
+	List<Releasenum> selectReleasenums(ReleasenumExample example);
+
 }

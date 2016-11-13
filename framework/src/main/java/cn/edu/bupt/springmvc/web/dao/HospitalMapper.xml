@@ -19,14 +19,15 @@
     ofType:指定映射到集合中的pojo的类型-->
     <collection property="sectionList" ofType="cn.edu.bupt.springmvc.web.model.Section" >
         <id column="sectionId" jdbcType="CHAR" property="sectionid" />
-<!--         <result column="hosId" jdbcType="CHAR" property="hosid" /> -->
+        <result column="hosId" jdbcType="CHAR" property="hosid" />
         <result column="sectionCode" jdbcType="VARCHAR" property="sectioncode" />
         <result column="sectionName" jdbcType="VARCHAR" property="sectionname" />
         <result column="sectionIntro" jdbcType="VARCHAR" property="sectionintro" />
         <result column="sectionPic" jdbcType="VARCHAR" property="sectionpic" />
         <result column="sectionLoc" jdbcType="VARCHAR" property="sectionloc" />
     </collection>
-  </resultMap>
+  </resultMap> 
+ 
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -89,11 +90,16 @@
     hosId, hosName, hosGrade, hosAddr, hosTel, hosIntro, hosUrl, dean, deanIntro, hosTraffic, 
     hosSpecial, hosEstablished
   </sql>
-  <select id="finHospitalSectionResultMap" parameterType="String" resultMap="HospitalBaseResultMap">
+  <sql id="Hole_Column_List" >
+   	hospital.*,
+	section.*
+  </sql>
+  
+  
+  <select id="getHospitalSectionResultMap" parameterType="String" 
+  resultMap="cn.edu.bupt.springmvc.web.dao.SectionMapper.BaseResultMap">
 	SELECT
-	hospital.*,
-	section.sectionId,
-	section.sectionName
+	section.*
 	FROM
 	hospital,
 	section
@@ -104,8 +110,8 @@
     <if test="distinct" >
       distinct
     </if>
-    <include refid="Base_Column_List" />
-    from hospital
+    <include refid="Hole_Column_List" />
+    from hospital,section
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -115,9 +121,10 @@
   </select>
   <select id="selectByPrimaryKey" resultMap="HospitalBaseResultMap" parameterType="java.lang.String" >
     select 
-    <include refid="Base_Column_List" />
-    from hospital
-    where hosId = #{hosid,jdbcType=CHAR}
+    <include refid="Hole_Column_List" />
+    from hospital,section
+    WHERE hospital.hosId =#{value} and hospital.hosId = section.hosId;
+    <!-- where hosId = #{hosid,jdbcType=CHAR} -->
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from hospital

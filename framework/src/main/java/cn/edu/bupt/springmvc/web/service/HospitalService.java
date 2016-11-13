@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import cn.edu.bupt.springmvc.web.model.Hospital;
+import cn.edu.bupt.springmvc.web.model.Section;
 
 public interface HospitalService {
 
@@ -12,13 +13,7 @@ public interface HospitalService {
 	
 	List<Hospital> selectByExample();
 	
-	/**
-	 * @author qjk
-	 * @param page
-	 * @param rows
-	 * @return
-	 */
-	Hospital searchHosInfo(String hosId);
+	Hospital selectByPrimaryKey(String hosId);
 	
 	List<Hospital> selectByPage(int page,int rows);
 	
@@ -26,5 +21,5 @@ public interface HospitalService {
 	
 	int deleteByExample();
 	
-	public List<Hospital> getHospitalSectionList(String hospitalId)throws Exception;
+	public List<Section> getHospitalSectionList(String hospitalId)throws Exception;
 }

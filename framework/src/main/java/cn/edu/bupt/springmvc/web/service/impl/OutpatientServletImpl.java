@@ -11,8 +11,11 @@ import com.github.pagehelper.PageHelper;
 
 import cn.edu.bupt.springmvc.web.dao.OutpatientMapper;
 import cn.edu.bupt.springmvc.web.dao.SectionMapper;
+import cn.edu.bupt.springmvc.web.model.Doctor;
 import cn.edu.bupt.springmvc.web.model.Outpatient;
 import cn.edu.bupt.springmvc.web.model.OutpatientExample;
+import cn.edu.bupt.springmvc.web.model.Releasenum;
+import cn.edu.bupt.springmvc.web.model.ReleasenumExample;
 import cn.edu.bupt.springmvc.web.model.Section;
 import cn.edu.bupt.springmvc.web.service.OutpatientService;
 
@@ -107,6 +110,43 @@ public class OutpatientServletImpl implements OutpatientService {
 	public Outpatient getOutpatientDetailsById(String outpatientId) throws Exception {
 		// TODO Auto-generated method stub
 		return outpatientMapper.selectByPrimaryKey(outpatientId);
+	}
+
+	@Override
+	public List<Outpatient> getOutpatientBySectionId(String sectionId) {
+		// TODO Auto-generated method stub
+		outpatientExample = new OutpatientExample();
+		outpatientExample.createCriteria().andSectionidEqualTo(sectionId);
+		List<Outpatient> customerList = outpatientMapper.selectByExample(outpatientExample);	
+		return customerList;
+	}
+
+	@Override
+	public Outpatient selectByPrimaryKey(String outpatientId) {
+		// TODO Auto-generated method stub
+		Outpatient outpatient = outpatientMapper.selectByPrimaryKey(outpatientId);	
+		return outpatient;
+	}
+
+	@Override
+	public List<Doctor> getOutpatientDoctors(String outpatientId) {
+		// TODO Auto-generated method stub
+		List<Doctor> doctors = outpatientMapper.selectOutpatientDoctors(outpatientId);	
+		return doctors;
+	}
+
+	
+	@Override
+	public List<Releasenum> getOutpatientReleasenums(String outpatientId,String week) {
+		// TODO Auto-generated method stub
+		ReleasenumExample example = new ReleasenumExample();
+		example.setOutpatientId(outpatientId);
+		if(week!=null){
+			example.createCriteria().andWeekEqualTo(week);
+		}else{
+			example.createCriteria().andWeekIsNotNull();
+		}
+		return outpatientMapper.selectReleasenums(example);
 	}
 
 }

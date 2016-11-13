@@ -1,4 +1,5 @@
-package cn.edu.bupt.springmvc.web.controller;
+package
+cn.edu.bupt.springmvc.web.controller;
 
 import java.util.List;
 
@@ -13,12 +14,42 @@ import cn.edu.bupt.springmvc.core.generic.GenericController;
 import cn.edu.bupt.springmvc.web.model.Releasenum;
 import cn.edu.bupt.springmvc.web.service.ReleasenumService;
 
+
+/**
+ * 放号
+ * @author wydewy
+ *
+ */
+
 @Controller
 @RequestMapping(value="releasenum")
 public class ReleasenumController extends GenericController {
-
 	@Resource
 	private ReleasenumService releasenumService;
+	
+	/**
+	 * 
+	 * 放號信息
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping(value="releasenum_info")
+	public void hospitalInfo(HttpServletRequest request, HttpServletResponse response){
+		String releasenumId = request.getParameter("releasenumId");
+		Releasenum record = null;
+		try {
+			record = releasenumService.getReleasenumDetailInfo(releasenumId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (record!=null) {
+			renderSuccessString(response, record);
+		} else {
+			renderErrorString(response, "select from doctor no data!");
+		}
+	}
+	
 	
 	@RequestMapping(value="insert")
 	public void insert(HttpServletRequest request, HttpServletResponse response){

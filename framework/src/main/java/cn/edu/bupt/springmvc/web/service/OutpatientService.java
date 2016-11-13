@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import cn.edu.bupt.springmvc.web.model.Doctor;
 import cn.edu.bupt.springmvc.web.model.Outpatient;
+import cn.edu.bupt.springmvc.web.model.Releasenum;
 
 public interface OutpatientService {
 
@@ -29,4 +31,12 @@ public interface OutpatientService {
 	List<Outpatient> selectBySectionName(String sectionName);
 	
 	Outpatient selectByName(String outpatientName);
+	
+	Outpatient selectByPrimaryKey(String outpatientId);
+
+	List<Outpatient> getOutpatientBySectionId(String sectionId);
+
+	List<Doctor> getOutpatientDoctors(String outpatientId);
+
+	List<Releasenum> getOutpatientReleasenums(String outpatientId,String week);
 }

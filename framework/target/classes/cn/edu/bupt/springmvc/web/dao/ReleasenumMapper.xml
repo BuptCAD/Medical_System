@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.edu.bupt.springmvc.web.dao.ReleasenumMapper" >
   <resultMap id="BaseResultMap" type="cn.edu.bupt.springmvc.web.model.Releasenum" >
-    <id column="realseId" property="realseid" jdbcType="VARCHAR" />
+    <id column="releaseId" property="releaseid" jdbcType="VARCHAR" />
     <result column="doctorId" property="doctorid" jdbcType="VARCHAR" />
     <result column="price" property="price" jdbcType="DOUBLE" />
     <result column="date" property="date" jdbcType="TIMESTAMP" />
@@ -71,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    realseId, doctorId, price, date, remark, isSuccess, isFamilyNum, week, ampm
+    releaseId, doctorId, price, date, remark, isSuccess, isFamilyNum, week, ampm
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.edu.bupt.springmvc.web.model.ReleasenumExample" >
     select
@@ -91,11 +91,11 @@
     select 
     <include refid="Base_Column_List" />
     from releasenum
-    where realseId = #{realseid,jdbcType=VARCHAR}
+    where releaseId = #{releaseid,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from releasenum
-    where realseId = #{realseid,jdbcType=VARCHAR}
+    where releaseId = #{releaseid,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="cn.edu.bupt.springmvc.web.model.ReleasenumExample" >
     delete from releasenum
@@ -104,11 +104,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.edu.bupt.springmvc.web.model.Releasenum" >
-    insert into releasenum (realseId, doctorId, price, 
+    insert into releasenum (releaseId, doctorId, price, 
       date, remark, isSuccess, 
       isFamilyNum, week, ampm
       )
-    values (#{realseid,jdbcType=VARCHAR}, #{doctorid,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
+    values (#{releaseid,jdbcType=VARCHAR}, #{doctorid,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
       #{date,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{issuccess,jdbcType=TINYINT}, 
       #{isfamilynum,jdbcType=INTEGER}, #{week,jdbcType=VARCHAR}, #{ampm,jdbcType=VARCHAR}
       )
@@ -116,8 +116,11 @@
   <insert id="insertSelective" parameterType="cn.edu.bupt.springmvc.web.model.Releasenum" >
     insert into releasenum
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="realseid != null" >
-        realseId,
+      <if test="releaseid != null" >
+        releaseId,
+      </if>
+       <if test="outpatientid != null" >
+        
       </if>
       <if test="doctorid != null" >
         doctorId,
@@ -145,8 +148,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="realseid != null" >
-        #{realseid,jdbcType=VARCHAR},
+      <if test="releaseid != null" >
+        #{releaseid,jdbcType=VARCHAR},
+      </if>
+       <if test="outpatientid != null" >
+        #{outpatientid,jdbcType=VARCHAR},
       </if>
       <if test="doctorid != null" >
         #{doctorid,jdbcType=VARCHAR},
@@ -183,8 +189,8 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update releasenum
     <set >
-      <if test="record.realseid != null" >
-        realseId = #{record.realseid,jdbcType=VARCHAR},
+      <if test="record.releaseid != null" >
+        releaseId = #{record.releaseid,jdbcType=VARCHAR},
       </if>
       <if test="record.doctorid != null" >
         doctorId = #{record.doctorid,jdbcType=VARCHAR},
@@ -217,7 +223,7 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update releasenum
-    set realseId = #{record.realseid,jdbcType=VARCHAR},
+    set releaseId = #{record.releaseid,jdbcType=VARCHAR},
       doctorId = #{record.doctorid,jdbcType=VARCHAR},
       price = #{record.price,jdbcType=DOUBLE},
       date = #{record.date,jdbcType=TIMESTAMP},
@@ -258,11 +264,12 @@
         ampm = #{ampm,jdbcType=VARCHAR},
       </if>
     </set>
-    where realseId = #{realseid,jdbcType=VARCHAR}
+    where releaseId = #{releaseid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.edu.bupt.springmvc.web.model.Releasenum" >
     update releasenum
-    set doctorId = #{doctorid,jdbcType=VARCHAR},
+    set 
+     doctorId = #{doctorid,jdbcType=VARCHAR},
       price = #{price,jdbcType=DOUBLE},
       date = #{date,jdbcType=TIMESTAMP},
       remark = #{remark,jdbcType=VARCHAR},
@@ -270,6 +277,6 @@
       isFamilyNum = #{isfamilynum,jdbcType=INTEGER},
       week = #{week,jdbcType=VARCHAR},
       ampm = #{ampm,jdbcType=VARCHAR}
-    where realseId = #{realseid,jdbcType=VARCHAR}
+    where releaseId = #{releaseid,jdbcType=VARCHAR}
   </update>
 </mapper>

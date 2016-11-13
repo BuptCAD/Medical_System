@@ -98,7 +98,7 @@ public class AppointmentController extends GenericController {
 			Doctor doctor= doctorService.getDoctorDetailInfo(doctorId);
 			Outpatient outpatient = outpatientService.getOutpatientDetailsById(doctor.getOutpatientid());
 			Releasenum releasenum = releasenumService.getReleasenumDetailsById(releasenumId);
-			Section section = sectionService.getSectionById(outpatient.getSectionid());
+			Section section = sectionService.selectByPrimaryKey(outpatient.getSectionid());
 			String uuid = UUID.randomUUID().toString();
 			appointment.setId(uuid);
 			appointment.setDoctorid(doctorId);

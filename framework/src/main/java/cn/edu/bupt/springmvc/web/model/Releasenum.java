@@ -3,9 +3,11 @@ package cn.edu.bupt.springmvc.web.model;
 import java.util.Date;
 
 public class Releasenum {
-    private String realseid;
+    private String releaseid;
 
     private String doctorid;
+    
+    private String outpatientId;
 
     private Double price;
 
@@ -22,11 +24,11 @@ public class Releasenum {
     private String ampm;
 
     public String getRealseid() {
-        return realseid;
+        return releaseid;
     }
 
-    public void setRealseid(String realseid) {
-        this.realseid = realseid == null ? null : realseid.trim();
+    public void setReleaseid(String releaseid) {
+        this.releaseid = releaseid == null ? null : releaseid.trim();
     }
 
     public String getDoctorid() {
@@ -92,4 +94,12 @@ public class Releasenum {
     public void setAmpm(String ampm) {
         this.ampm = ampm == null ? null : ampm.trim();
     }
+
+	public String getOutpatientid() {
+		return outpatientId;
+	}
+
+	public void setOutpatientid(String outpatientId) {
+		 this.outpatientId = outpatientId == null ? null : outpatientId.trim();
+	}
 }

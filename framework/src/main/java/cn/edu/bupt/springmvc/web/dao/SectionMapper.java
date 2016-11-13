@@ -1,10 +1,12 @@
 package cn.edu.bupt.springmvc.web.dao;
 
-import cn.edu.bupt.springmvc.web.model.Doctor;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import cn.edu.bupt.springmvc.web.model.Outpatient;
 import cn.edu.bupt.springmvc.web.model.Section;
 import cn.edu.bupt.springmvc.web.model.SectionExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface SectionMapper {
     int countByExample(SectionExample example);
@@ -17,9 +19,6 @@ public interface SectionMapper {
 
     int insertSelective(Section record);
 
-    List<Section> selectByExample(SectionExample example);
-
-    Section selectByPrimaryKey(String sectionid);
 
     int updateByExampleSelective(@Param("record") Section record, @Param("example") SectionExample example);
 
@@ -29,7 +28,15 @@ public interface SectionMapper {
 
     int updateByPrimaryKey(Section record);
 	
-	List<Doctor> selectSectionDoctorsBySectionId(String sectionId);
+    List<Section> selectByExample(SectionExample example);
+
+    Section selectByPrimaryKey(String sectionid);
+    /**
+     * 获得科室下的所有门诊
+     * @param sectionId
+     * @return
+     */
+	List<Outpatient> selectSectionOutpatientsBySectionId(String sectionId);
 	
     /*qjk add interface*/
 	Section selectBySectionName(String sectionName);

@@ -73,6 +73,44 @@
     outpatientId, outpatientName, sectionId, sectionName, doctorName, outpatientLoc, 
     count, telephone
   </sql>
+  
+   <!-- 根据门诊的Id得到本门诊下所有的医生 -->
+  <select id = "selectOutpatientDoctors" parameterType="String" 
+  resultMap="cn.edu.bupt.springmvc.web.dao.DoctorMapper.DoctorBaseResultMap">
+	SELECT doctor.*
+	FROM
+	doctor,
+	outpatient
+	WHERE
+	doctor.outpatientId = outpatient.outpatientId
+	AND
+	outpatient.outpatientId = #{value}
+  </select>
+  
+   <!-- 根据门诊的Id得到本门诊下所有的放號 -->
+  <select id = "selectReleasenums" 
+  parameterType="cn.edu.bupt.springmvc.web.model.ReleasenumExample" 
+  resultMap="cn.edu.bupt.springmvc.web.dao.ReleasenumMapper.BaseResultMap">
+	SELECT releasenum.*,outpatient.outpatientId
+	FROM
+	doctor,
+	releasenum,
+	outpatient
+	<if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+	AND
+	outpatient.outpatientId = "${outpatientId}"
+    AND
+    doctor.outpatientId = outpatient.outpatientId
+	AND
+	releasenum.doctorId = doctor.doctorId
+	 <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.edu.bupt.springmvc.web.model.OutpatientExample" >
     select
     <if test="distinct" >

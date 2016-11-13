@@ -2,6 +2,8 @@ package cn.edu.bupt.springmvc.web.dao;
 
 import cn.edu.bupt.springmvc.web.model.Hospital;
 import cn.edu.bupt.springmvc.web.model.HospitalExample;
+import cn.edu.bupt.springmvc.web.model.Section;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,10 +18,6 @@ public interface HospitalMapper {
 
     int insertSelective(Hospital record);
 
-    List<Hospital> selectByExample(HospitalExample example);
-
-    Hospital selectByPrimaryKey(String hosid);
-
     int updateByExampleSelective(@Param("record") Hospital record, @Param("example") HospitalExample example);
 
     int updateByExample(@Param("record") Hospital record, @Param("example") HospitalExample example);
@@ -28,5 +26,22 @@ public interface HospitalMapper {
 
     int updateByPrimaryKey(Hospital record);
 	
-	List<Hospital> finHospitalSectionResultMap(String hospitalId);
+    /**
+     * 条件查询
+     * @param example是条件
+     * @return
+     */
+    List<Hospital> selectByExample(HospitalExample example);
+    /**
+     * 根据hosid返回医院信息
+     * @param hosid
+     * @return
+     */
+    Hospital selectByPrimaryKey(String hosid);
+    /**
+     * 根据hosid返回医院的所有科室
+     * @param hosid
+     * @return
+     */
+	List<Section> getHospitalSectionResultMap(String hosid);
 }

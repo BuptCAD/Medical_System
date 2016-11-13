@@ -11,6 +11,9 @@ public class ReleasenumExample {
 
     protected List<Criteria> oredCriteria;
 
+    protected String outpatientId;
+    protected String week;
+    
     public ReleasenumExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
@@ -21,6 +24,14 @@ public class ReleasenumExample {
 
     public String getOrderByClause() {
         return orderByClause;
+    }
+    
+    public void setOutpatientId(String outpatientId) {
+        this.outpatientId = outpatientId;
+    }
+
+    public String getOutpatientId() {
+        return outpatientId;
     }
 
     public void setDistinct(boolean distinct) {
@@ -106,72 +117,72 @@ public class ReleasenumExample {
         }
 
         public Criteria andRealseidIsNull() {
-            addCriterion("realseId is null");
+            addCriterion("releaseId is null");
             return (Criteria) this;
         }
 
         public Criteria andRealseidIsNotNull() {
-            addCriterion("realseId is not null");
+            addCriterion("releaseId is not null");
             return (Criteria) this;
         }
 
         public Criteria andRealseidEqualTo(String value) {
-            addCriterion("realseId =", value, "realseid");
+            addCriterion("releaseId =", value, "releaseid");
             return (Criteria) this;
         }
 
         public Criteria andRealseidNotEqualTo(String value) {
-            addCriterion("realseId <>", value, "realseid");
+            addCriterion("releaseId <>", value, "releaseid");
             return (Criteria) this;
         }
 
         public Criteria andRealseidGreaterThan(String value) {
-            addCriterion("realseId >", value, "realseid");
+            addCriterion("releaseId >", value, "releaseid");
             return (Criteria) this;
         }
 
         public Criteria andRealseidGreaterThanOrEqualTo(String value) {
-            addCriterion("realseId >=", value, "realseid");
+            addCriterion("releaseId >=", value, "releaseid");
             return (Criteria) this;
         }
 
         public Criteria andRealseidLessThan(String value) {
-            addCriterion("realseId <", value, "realseid");
+            addCriterion("releaseId <", value, "releaseid");
             return (Criteria) this;
         }
 
         public Criteria andRealseidLessThanOrEqualTo(String value) {
-            addCriterion("realseId <=", value, "realseid");
+            addCriterion("releaseId <=", value, "releaseid");
             return (Criteria) this;
         }
 
         public Criteria andRealseidLike(String value) {
-            addCriterion("realseId like", value, "realseid");
+            addCriterion("releaseId like", value, "releaseid");
             return (Criteria) this;
         }
 
         public Criteria andRealseidNotLike(String value) {
-            addCriterion("realseId not like", value, "realseid");
+            addCriterion("releaseId not like", value, "releaseid");
             return (Criteria) this;
         }
 
         public Criteria andRealseidIn(List<String> values) {
-            addCriterion("realseId in", values, "realseid");
+            addCriterion("releaseId in", values, "releaseid");
             return (Criteria) this;
         }
 
         public Criteria andRealseidNotIn(List<String> values) {
-            addCriterion("realseId not in", values, "realseid");
+            addCriterion("releaseId not in", values, "releaseid");
             return (Criteria) this;
         }
 
         public Criteria andRealseidBetween(String value1, String value2) {
-            addCriterion("realseId between", value1, value2, "realseid");
+            addCriterion("releaseId between", value1, value2, "releaseid");
             return (Criteria) this;
         }
 
         public Criteria andRealseidNotBetween(String value1, String value2) {
-            addCriterion("realseId not between", value1, value2, "realseid");
+            addCriterion("releaseId not between", value1, value2, "releaseid");
             return (Criteria) this;
         }
 
@@ -244,7 +255,8 @@ public class ReleasenumExample {
             addCriterion("doctorId not between", value1, value2, "doctorid");
             return (Criteria) this;
         }
-
+        
+ 
         public Criteria andPriceIsNull() {
             addCriterion("price is null");
             return (Criteria) this;

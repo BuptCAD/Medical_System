@@ -19,4 +19,6 @@ public interface ReleasenumService {
 	int deleteByExample();
 	
 	Releasenum getReleasenumDetailsById(String releasenumId) throws Exception;
+
+	Releasenum getReleasenumDetailInfo(String releasenumId);
 }

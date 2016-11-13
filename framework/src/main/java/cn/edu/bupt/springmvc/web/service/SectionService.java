@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import cn.edu.bupt.springmvc.web.model.Doctor;
+import cn.edu.bupt.springmvc.web.model.Outpatient;
 import cn.edu.bupt.springmvc.web.model.Section;
 
 public interface SectionService {
@@ -19,7 +20,7 @@ public interface SectionService {
 		
 	int deleteByExample();
 	
-	public List<Doctor> getSectionDoctorList(String sectionId)throws Exception;
+	public List<Outpatient> getSectionOutpatient(String sectionId)throws Exception;
 	
 	/**
 	 * 
@@ -27,7 +28,7 @@ public interface SectionService {
 	 * @param outpatientId
 	 * @return
 	 */
-	Section getSectionById(String outpatientId);
+	Section selectByPrimaryKey(String outpatientId);
 	/**
 	 * 根据科室名称查找科室门诊信息
 	 * 
