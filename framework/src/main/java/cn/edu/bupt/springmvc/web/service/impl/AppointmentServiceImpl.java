@@ -44,7 +44,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 	@Override
 	public List<Appointment> selectByExample() {
 		appointmentExample = new AppointmentExample();
-		appointmentExample.createCriteria().andDoctornameEqualTo("");
+//		appointmentExample.createCriteria().andDoctornameEqualTo("");
 		List<Appointment> list = appointmentMapper.selectByExample(appointmentExample);
 		return list;
 	}
@@ -81,6 +81,12 @@ public class AppointmentServiceImpl implements AppointmentService {
 		appointmentExample.createCriteria().andIdcardEqualTo("");
 		int i = appointmentMapper.deleteByExample(appointmentExample);
 		return i;
+	}
+
+	@Override
+	public int delete(String appointmentId) {
+		// TODO Auto-generated method stub
+		return appointmentMapper.deleteByPrimaryKey(appointmentId);
 	}
 
 }

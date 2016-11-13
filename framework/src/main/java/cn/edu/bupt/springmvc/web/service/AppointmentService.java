@@ -17,4 +17,6 @@ public interface AppointmentService {
 	int updateByPrimaryKeySelective(@Param("record") Appointment record);
 	
 	int deleteByExample();
+
+	int delete(String appointmentId);
 }
